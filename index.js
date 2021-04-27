@@ -4,7 +4,7 @@ const port = 4000
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const config = require('./config/key');
-
+const {auth} = require('./middleware/auth');
 const {User} = require("./models/User");
 
 
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post('/register', (req, res) => {
+app.post('/api/users/register', (req, res) => {
 
   
   const user = new User(req.body)
@@ -72,21 +72,33 @@ app.post('/login', (req, res) => {
         //-> 현재 user 안에 있는 토큰을 쿠키나 로컬 스토리지에 저장 (지금은 쿠키에 저장한다)
         //npm install cookie-parser --save\
         res.cookie("x_auth", user.token)
-        //성공 코드
-        .status(200)
-        .json ({
-          loginSuccess: true,
-          userId: user._id
-        })
-
+          //성공 코드
+          .status(200)
+          .json ({
+            loginSuccess: true,
+            userId: user._id
+          })
       })
     })
   })
-
-
-  // 3. 비밀번호가 일치하면 토큰을 생성하기
 })
 
+//auth에서 request한 뒤 call-back 하기 전 중간에서 auth.js으로 인증처리
+app.get('/api/users/auth', auth, (req, res) => {
+
+  //여기까지 미들웨어를 통과해왔다는 얘기는 Authentication = true 라는 뜻임
+  res.status(200).json ({
+    _id: req.user._id,
+    //role === 1 -> 일반유저 //role !== 0이면 관리자
+    isAdmin: req.user.role === 0 ? false : true,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastname: req.user.lastname,
+    role: req.user.role,
+    image: req.user.image
+  })
+})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
