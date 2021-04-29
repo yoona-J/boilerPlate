@@ -49,7 +49,7 @@ app.post('/api/users/register', (req, res) => {
   })
 })
 
-app.post('/login', (req, res) => {
+app.post('/api/users/login', (req, res) => {
   // 1. 요청된 이메일을 데이터베이스에서 있는지 찾는다.
 
     //만약 요청된 이메일을 가진 유저가 한명도 없다면
@@ -108,6 +108,7 @@ app.get('/api/users/auth', auth, (req, res) => {
   })
 })
 
+//로그아웃
 app.get('/api/users/logout', auth, (req, res) => {
 
   User.findOneAndUpdate({_id: req.user._id}, 
