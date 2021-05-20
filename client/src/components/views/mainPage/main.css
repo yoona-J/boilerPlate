@@ -1,0 +1,48 @@
+.top {
+    position: absolute;
+    width: 1920px;
+    height: 270px;
+    left: 0px;
+    top: 0px;
+}
+
+.top.header {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 25.93%;
+
+    background: #FFD088;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+
+.top.menuBar {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 74.07%;
+    bottom: 0%;
+
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+
+.top.brown_thumb {
+    position: absolute;
+    left: 42.6%;
+    right: 42.6%;
+    top: 22.59%;
+    bottom: 59.63%;
+
+    font-family: Red Hat Display;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 48px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
